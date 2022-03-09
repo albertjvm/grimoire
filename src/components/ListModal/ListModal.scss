@@ -1,0 +1,39 @@
+.ListModal-Wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+
+    .ListModal {
+        position: relative;
+        background-color: black;
+        color: white;
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform .3s;
+        display: flex;
+        flex-direction: column;
+        font-size: large;
+        font-weight: bold;
+        padding: 16px;
+        width: fit-content;
+
+        &.open {
+            transform: scaleY(1);
+        }
+
+        header {
+            color: rgba(white, .7);
+        }
+
+
+        .ListModal-row {
+            cursor: pointer;
+            &:hover {
+                color: rgba(white, .7);
+            }
+        }
+    }
+}

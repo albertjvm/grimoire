@@ -1,0 +1,128 @@
+.SpellChooser {
+    width: 100%;
+    flex: 1;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    box-sizing: border-box;
+
+    input {
+        box-sizing: border-box;
+        width: 100%;
+        border: none;
+        outline: none;
+        background-color: rgba(white, .3);
+        color: white;
+        padding: 8px;
+        font-size: medium;
+        font-weight: bold;
+    }
+
+    .SpellChooser-filters {
+        .buttonGroup {
+            display: grid;
+            grid-gap: 4px;
+            margin: 8px 0;
+
+            button {
+                cursor: pointer;
+                border: none;
+                outline: none;
+                font-weight: bold;
+                color: white;
+                background-color: rgba(white, .3);
+                padding: 4px;
+
+                &.active {
+                    background-color: rgba(white, .5);
+                }
+            }
+            
+            &.col3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            &.col4 {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            &.col5 {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+    }
+
+    .SpellChooser-spells {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+        color: white;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .SpellChooser-row {
+            display: flex;
+            flex-direction: row;
+
+            .SpellChooser-spell {
+                flex: 1;
+                padding: 8px;
+                cursor: pointer;
+                font-size: medium;
+                font-weight: bold;
+                user-select: none;
+                overflow: hidden;
+                white-space: nowrap;
+    
+                &:hover {
+                    background-color: rgba(white, .3);
+                }
+
+                .level {
+                    font-size: small;
+                    border-radius: 20px;
+                    background-color: rgba(white, .5);
+                    color: white;
+                    padding: 4px 8px;
+                    margin-right: 4px;
+                }
+            }
+
+            button {
+                border: none;
+                background-color: rgba(white, .3);
+                color: white;
+                font-size: x-large;
+                width: 40px;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform .2s;
+                cursor: pointer;
+                
+                &:hover {
+                    background-color: rgba(white, .6);
+                }
+            }
+
+            &:hover {
+                button {
+                    transform: scaleX(1);
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .SpellChooser {
+        .SpellChooser-spells {
+            .SpellChooser-row {
+                button {
+                    transform: scaleX(1);
+                }
+            }
+        }
+    }
+}

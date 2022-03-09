@@ -1,0 +1,48 @@
+.SpellLists {
+    width: 100%;
+    flex: 1;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    box-sizing: border-box;
+
+    .SpellLists-lists {
+        flex: 1;
+        color: white;
+        border-top: 2px solid white;
+
+        .SpellLists-list {
+            padding: 8px;
+            cursor: pointer;
+            font-size: medium;
+            font-weight: bold;
+
+            &:hover {
+                background-color: rgba(white, .3);
+            }
+        }
+    }
+
+    .SpellLists-footer {
+        display: flex;
+        flex-direction: row;
+
+        input {
+            box-sizing: border-box;
+            flex: 1;
+            border: none;
+            outline: none;
+            background-color: rgba(white, .3);
+            color: white;
+            padding: 8px;
+            font-size: medium;
+            font-weight: bold;
+        }
+
+        button {
+            font-size: x-large;
+            width: 40px;
+        }
+    }
+}

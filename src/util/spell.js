@@ -1,0 +1,1 @@
+export const getSpellId = ({ name }) => name.toLowerCase().replaceAll(/[\s/]/g, '-').replaceAll(/[^a-z-]/g, '');

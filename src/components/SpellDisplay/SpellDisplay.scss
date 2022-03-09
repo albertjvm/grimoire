@@ -1,0 +1,38 @@
+.SpellDisplay {
+    padding: 16px;
+
+    button {
+        height: 50px;
+        width: 50px;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        font-size: 32px;
+        border-radius: 25px;
+    }
+
+    .castingInfo {
+        display: grid;
+        grid-template-columns: 100px 200px;
+
+        .label {
+            font-weight: bold;
+        }
+        .value {
+            font-variant: small-caps;
+            font-weight: bold;
+        }
+    }
+
+    .flags {
+        background-color: rgba(black, .3);
+        font-weight: bold;
+        font-size: large;
+        font-variant: small-caps;
+        display: flex;
+        flex-direction: column;
+        color: white;
+        align-items: center;
+        justify-content: center;
+    }
+}
