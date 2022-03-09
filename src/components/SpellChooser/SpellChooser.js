@@ -53,8 +53,8 @@ export const SpellChooser = ({ spells = [], onSelect, showFilters = false }) => 
     // console.log(filteredSpells().map(s => s.duration));
 
     const handleAdd = (e, s) => {
-        const { offsetTop, offsetLeft, offsetHeight } = e.target;
-        setModalCoords([offsetTop + offsetHeight, offsetLeft]);
+        const { pageX, pageY } = e;
+        setModalCoords([pageY, pageX]);
         setSpellToAdd(s);
     };
 
