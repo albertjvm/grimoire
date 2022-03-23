@@ -1,10 +1,13 @@
 import { useState } from 'react';
+import { SPELLS } from '../../data/spells';
+import { getSpellId } from '../../util/spell';
 import './SpellList.scss';
 
 export const SpellList = ({ 
     spells = [], 
     onSelect, 
-    onRemove = () => {}
+    onRemove = () => {},
+    onCheck = () => {}
 }) => {
     const [ searchString, setSearchString ] = useState('');
     const [ levelFilter, setLevelFilter ] = useState([]);
@@ -24,10 +27,15 @@ export const SpellList = ({
 
     const filteredSpells = () => {
         const regex = new RegExp(searchString.toLowerCase());
-        return spells.filter(({ name }) => regex.test(name.toLowerCase()))
+        return SPELLS
+        .filter(s => spells.find(ls => ls.name === getSpellId(s)))
+        .filter(({ name }) => regex.test(name.toLowerCase()))
         .filter(filterByLevel)
         .sort(compareSpells)
     };
+    const isChecked = (name) => (
+        spells.find(s => s.name === name)?.selected
+    );
 
     return (
         <div className='SpellList'>
@@ -58,6 +66,10 @@ export const SpellList = ({
             <div className='SpellList-spells'>
                 {filteredSpells().map((spell, i) => (
                     <div key={i} className='SpellList-row'>
+                        <span 
+                            className={`SpellList-checked fas fa-${isChecked(getSpellId(spell)) ? 'check-circle' : 'circle'}`} 
+                            onClick={() => onCheck(spell)}
+                        />
                         <span 
                             className="SpellList-spell"
                             onClick={() => onSelect(spell)}

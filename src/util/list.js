@@ -1,5 +1,5 @@
 export const addSpellToList = ({listName, spellId}) => {
-    console.log('adding', spellId, 'to', listName);
+    // console.log('adding', spellId, 'to', listName);
     const spells = getList(listName) || [];
 
     if (spells.find(s => s.name === spellId)) {
@@ -13,8 +13,18 @@ export const addSpellToList = ({listName, spellId}) => {
     ]);
 };
 
+export const checkSpell = ({listName, spellId}) => {
+    const spells = (getList(listName) || []);
+    const selected = spells.find(s => s.name === spellId)?.selected
+
+    setList(listName, [
+        ...(spells.filter(s => s.name !== spellId)),
+        {name: spellId, selected: !selected}
+    ]);
+};
+
 export const removeSpellFromList = ({listName, spellId}) => {
-    console.log('removing', spellId, 'from', listName);
+    // console.log('removing', spellId, 'from', listName);
     const spells = (getList(listName) || []).filter(s => s.name !== spellId);
 
     setList(listName, [

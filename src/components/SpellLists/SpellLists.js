@@ -1,8 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { SpellList } from '..';
 import { SpellListsContext } from '../../context/SpellListsContext';
-import { SPELLS } from '../../data/spells';
-import { getList, removeSpellFromList } from '../../util/list';
+import { checkSpell, getList, removeSpellFromList } from '../../util/list';
 import { getSpellId } from '../../util/spell';
 import './SpellLists.scss';
 
@@ -24,9 +23,13 @@ export const SpellLists = ({ onSelectSpell }) => {
         syncSpells();
     };
 
+    const handleCheckSpell = (spell) => {
+        checkSpell({listName: activeListName,spellId:  getSpellId(spell)});
+        syncSpells();
+    };
+
     const syncSpells = useCallback(() => {
-        const spellIds = (getList(activeListName) || []).map(s => s.name);
-        setListSpells(SPELLS.filter((s) => spellIds.includes(getSpellId(s))));
+        setListSpells(getList(activeListName) || []);
     }, [activeListName]);
 
     useEffect(() => {
@@ -40,7 +43,7 @@ export const SpellLists = ({ onSelectSpell }) => {
                     <h2>{activeListName}</h2>
                     <button className="fas fa-times" onClick={() => setActiveListName(null)} />
                 </div>
-                <SpellList spells={listSpells} onSelect={onSelectSpell} onRemove={handleRemoveSpell} /> 
+                <SpellList spells={listSpells} onSelect={onSelectSpell} onRemove={handleRemoveSpell} onCheck={handleCheckSpell} /> 
             </>:<>
                 <div className="SpellLists-lists">
                     {lists.map(({ name }, i) => (

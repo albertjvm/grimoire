@@ -48,6 +48,9 @@
             &.col5 {
                 grid-template-columns: repeat(5, 1fr);
             }
+            &.col7 {
+                grid-template-columns: repeat(7, 1fr);
+            }
         }
     }
 

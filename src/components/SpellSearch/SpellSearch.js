@@ -6,6 +6,7 @@ import { getSpellId } from '../../util/spell';
 import { addSpellToList } from '../../util/list';
 import { CLASSES } from '../../data/classes';
 import { SCHOOLS } from '../../data/schools';
+import { SOURCES } from '../../data/sources';
 
 export const SpellSearch = ({ 
     spells = [], 
@@ -18,6 +19,7 @@ export const SpellSearch = ({
     const [ searchString, setSearchString ] = useState('');
     const [ classFilter, setClassFilter ] = useState(null);
     const [ schoolFilter, setSchoolFilter ] = useState(null);
+    const [ sourceFilter, setSourceFilter ] = useState(null);
     const [ levelFilter, setLevelFilter ] = useState([]);
 
     const filterByClass = ({classes}) => {
@@ -26,6 +28,11 @@ export const SpellSearch = ({
             ...(classes?.fromClassList || []),
             ...(classes?.fromClassListVariant || []),
         ]).map(c => c.name).includes(classFilter);
+    };
+
+    const filterBySource = ({source}) => {
+        if (!sourceFilter) return true;
+        return source === sourceFilter;
     };
 
     const filterBySchool = ({school}) => {
@@ -51,6 +58,7 @@ export const SpellSearch = ({
         return spells.filter(({ name }) => regex.test(name.toLowerCase()))
         .filter(filterByClass)
         .filter(filterBySchool)
+        .filter(filterBySource)
         .filter(filterByLevel)
         // .filter(({duration}) => duration[0].type==='permanent')
         .sort(compareSpells)
@@ -117,6 +125,17 @@ export const SpellSearch = ({
                             )}
                         >
                             {l}
+                        </button>
+                    ))}
+                </div>
+                <div className='buttonGroup col7'>
+                    {SOURCES.map(s => (
+                        <button
+                            key={s}
+                            className={sourceFilter === s ? 'active' : ''}
+                            onClick={() => setSourceFilter(sourceFilter === s ? null : s)}
+                        >
+                            {s}
                         </button>
                     ))}
                 </div>
