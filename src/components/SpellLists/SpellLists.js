@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { SpellList } from '..';
 import { SpellListsContext } from '../../context/SpellListsContext';
 import { SPELLS } from '../../data/spells';
@@ -24,14 +24,14 @@ export const SpellLists = ({ onSelectSpell }) => {
         syncSpells();
     };
 
-    const syncSpells = () => {
+    const syncSpells = useCallback(() => {
         const spellIds = (getList(activeListName) || []).map(s => s.name);
         setListSpells(SPELLS.filter((s) => spellIds.includes(getSpellId(s))));
-    };
+    }, [activeListName]);
 
     useEffect(() => {
         syncSpells()
-    }, [activeListName]);
+    }, [activeListName, syncSpells]);
 
     return (
         <div className="SpellLists">
