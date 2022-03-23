@@ -1,5 +1,8 @@
 .SpellDisplay {
     padding: 16px;
+    height: 100%;
+    overflow-y: scroll;
+    box-sizing: border-box;
 
     button {
         height: 50px;

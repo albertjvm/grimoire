@@ -1,3 +1,4 @@
-export * from './SpellChooser/SpellChooser';
+export * from './SpellSearch/SpellSearch';
 export * from './SpellDisplay/SpellDisplay';
+export * from './SpellList/SpellList';
 export * from './SpellLists/SpellLists';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.scss';
-import { SpellChooser, SpellDisplay, SpellLists } from "./components";
+import { SpellSearch, SpellDisplay, SpellLists } from "./components";
 import { SpellListsProvider } from './context/SpellListsContext';
 import { SPELLS } from './data/spells';
 
@@ -28,7 +28,7 @@ function App() {
               </button>
             ))}
           </div>
-          {activeTab === TABS.SPELLS && <SpellChooser spells={SPELLS} onSelect={setActiveSpell} showFilters={true} />}
+          {activeTab === TABS.SPELLS && <SpellSearch spells={SPELLS} onSelect={setActiveSpell} inList={false} />}
           {activeTab === TABS.LISTS && <SpellLists onSelectSpell={setActiveSpell} />}
         </section>
         <section className="App-right">

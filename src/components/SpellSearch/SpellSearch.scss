@@ -1,4 +1,4 @@
-.SpellChooser {
+.SpellSearch {
     width: 100%;
     flex: 1;
     overflow-y: hidden;
@@ -19,7 +19,7 @@
         font-weight: bold;
     }
 
-    .SpellChooser-filters {
+    .SpellSearch-filters {
         .buttonGroup {
             display: grid;
             grid-gap: 4px;
@@ -51,7 +51,7 @@
         }
     }
 
-    .SpellChooser-spells {
+    .SpellSearch-spells {
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -62,11 +62,11 @@
             display: none;
         }
 
-        .SpellChooser-row {
+        .SpellSearch-row {
             display: flex;
             flex-direction: row;
 
-            .SpellChooser-spell {
+            .SpellSearch-spell {
                 flex: 1;
                 padding: 8px;
                 cursor: pointer;
@@ -94,12 +94,15 @@
                 border: none;
                 background-color: rgba(white, .3);
                 color: white;
-                font-size: x-large;
+                font-size: large;
                 width: 40px;
-                transform: scaleX(0);
-                transform-origin: left;
-                transition: transform .2s;
                 cursor: pointer;
+
+                &.add {
+                    transform: scaleX(0);
+                    transform-origin: left;
+                    transition: transform .2s;
+                }
                 
                 &:hover {
                     background-color: rgba(white, .6);
@@ -107,7 +110,7 @@
             }
 
             &:hover {
-                button {
+                button.add {
                     transform: scaleX(1);
                 }
             }
@@ -116,10 +119,10 @@
 }
 
 @media screen and (max-width: 600px) {
-    .SpellChooser {
-        .SpellChooser-spells {
-            .SpellChooser-row {
-                button {
+    .SpellSearch {
+        .SpellSearch-spells {
+            .SpellSearch-row {
+                button.add {
                     transform: scaleX(1);
                 }
             }

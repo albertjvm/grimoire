@@ -7,6 +7,30 @@
     padding: 16px;
     box-sizing: border-box;
 
+    .SpellLists-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        h2 {
+            flex: 1;
+            margin: 0;
+            color: white;
+        }
+
+        button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background-color: rgba(white, .3);
+            border: none;
+            font-size: xx-large;
+            height: 40px;
+            width: 40px;
+        }
+    }
+
     .SpellLists-lists {
         flex: 1;
         color: white;

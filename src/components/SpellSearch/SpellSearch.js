@@ -1,12 +1,18 @@
-import { useState } from 'react';
-import './SpellChooser.scss';
+import { useContext, useState } from 'react';
+import './SpellSearch.scss';
+import { SpellListsContext } from '../../context/SpellListsContext';
 import { ListModal } from '../ListModal/ListModal';
 import { getSpellId } from '../../util/spell';
 import { addSpellToList } from '../../util/list';
 import { CLASSES } from '../../data/classes';
 import { SCHOOLS } from '../../data/schools';
 
-export const SpellChooser = ({ spells = [], onSelect, showFilters = false }) => {
+export const SpellSearch = ({ 
+    spells = [], 
+    onSelect, 
+    onRemove = () => {}
+}) => {
+    const { lists } = useContext(SpellListsContext);
     const [ spellToAdd, setSpellToAdd ] = useState(null);
     const [ modalCoords, setModalCoords ] = useState(null);
     const [ searchString, setSearchString ] = useState('');
@@ -53,9 +59,13 @@ export const SpellChooser = ({ spells = [], onSelect, showFilters = false }) => 
     // console.log(filteredSpells().map(s => s.duration));
 
     const handleAdd = (e, s) => {
-        const { pageX, pageY } = e;
-        setModalCoords([pageY, pageX]);
-        setSpellToAdd(s);
+        if (lists.length === 1) {
+            addSpellToList({ listName: lists[0].name, spellId: getSpellId(s)});
+        } else {
+            const { pageX, pageY } = e;
+            setModalCoords([pageY, pageX]);
+            setSpellToAdd(s);
+        }
     };
 
     const handleListSelect = (listName) => {
@@ -64,65 +74,63 @@ export const SpellChooser = ({ spells = [], onSelect, showFilters = false }) => 
     };
 
     return (
-        <div className='SpellChooser'>
+        <div className='SpellSearch'>
             <input 
                 type="text"
                 placeholder='Search...'
                 value={searchString}
                 onChange={e => setSearchString(e.target.value)}
             />
-            {showFilters && 
-                <div className='SpellChooser-filters'>
-                    <div className='buttonGroup col3'>
-                        {CLASSES.map(c => (
-                            <button
-                                key={c}
-                                className={classFilter === c ? 'active' : ''}
-                                onClick={() => setClassFilter(classFilter === c ? null : c)}
-                            >
-                                {c}
-                            </button>
-                        ))}
-                    </div>
-                    <div className='buttonGroup col4'>
-                        {Object.keys(SCHOOLS).map(s => (
-                            <button
-                                key={s}
-                                className={schoolFilter === s ? 'active' : ''}
-                                onClick={() => setSchoolFilter(schoolFilter === s ? null : s)}
-                            >
-                                {SCHOOLS[s].slice(0,4)}
-                            </button>
-                        ))}
-                    </div>
-                    <div className='buttonGroup col5'>
-                        {(new Array(10).fill(0).map((_, i) => i)).map(l => (
-                            <button
-                                key={l}
-                                className={levelFilter.includes(l) ? 'active' : ''}
-                                onClick={() => setLevelFilter(
-                                    levelFilter.includes(l) ? 
-                                        levelFilter.filter(lf => lf !== l) 
-                                    : 
-                                        [...levelFilter, l]
-                                )}
-                            >
-                                {l}
-                            </button>
-                        ))}
-                    </div>
+            <div className='SpellSearch-filters'>
+                <div className='buttonGroup col3'>
+                    {CLASSES.map(c => (
+                        <button
+                            key={c}
+                            className={classFilter === c ? 'active' : ''}
+                            onClick={() => setClassFilter(classFilter === c ? null : c)}
+                        >
+                            {c}
+                        </button>
+                    ))}
                 </div>
-            }
-            <div className='SpellChooser-spells'>
+                <div className='buttonGroup col4'>
+                    {Object.keys(SCHOOLS).map(s => (
+                        <button
+                            key={s}
+                            className={schoolFilter === s ? 'active' : ''}
+                            onClick={() => setSchoolFilter(schoolFilter === s ? null : s)}
+                        >
+                            {SCHOOLS[s].slice(0,4)}
+                        </button>
+                    ))}
+                </div>
+                <div className='buttonGroup col5'>
+                    {(new Array(10).fill(0).map((_, i) => i)).map(l => (
+                        <button
+                            key={l}
+                            className={levelFilter.includes(l) ? 'active' : ''}
+                            onClick={() => setLevelFilter(
+                                levelFilter.includes(l) ? 
+                                    levelFilter.filter(lf => lf !== l) 
+                                : 
+                                    [...levelFilter, l]
+                            )}
+                        >
+                            {l}
+                        </button>
+                    ))}
+                </div>
+            </div>
+            <div className='SpellSearch-spells'>
                 {filteredSpells().map((spell, i) => (
-                    <div key={i} className='SpellChooser-row'>
+                    <div key={i} className='SpellSearch-row'>
                         <span 
-                            className="SpellChooser-spell"
+                            className="SpellSearch-spell"
                             onClick={() => onSelect(spell)}
                         >
                             <span className='level'>{spell.level}</span>{spell.name}
                         </span>
-                        <button onClick={(e) => handleAdd(e, spell)}>+</button>
+                        <button className='add fas fa-plus' onClick={(e) => handleAdd(e, spell)} />
                     </div>
                 ))}
             </div>
