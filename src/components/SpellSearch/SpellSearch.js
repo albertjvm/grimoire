@@ -1,9 +1,8 @@
 import { useContext, useState } from 'react';
 import './SpellSearch.scss';
-import { SpellListsContext } from '../../context/SpellListsContext';
 import { ListModal } from '../ListModal/ListModal';
 import { getSpellId } from '../../util/spell';
-import { addSpellToList, removeSpellFromList, listContainsSpell } from '../../util/list';
+import { addSpellToList, listContainsSpell } from '../../util/list';
 import { CLASSES } from '../../data/classes';
 import { SCHOOLS } from '../../data/schools';
 import { SOURCES } from '../../data/sources';
@@ -11,10 +10,8 @@ import { ActiveListContext } from '../../context/ActiveListContext';
 
 export const SpellSearch = ({ 
     spells = [], 
-    onSelect, 
-    onRemove = () => {}
+    onSelect
 }) => {
-    const { lists } = useContext(SpellListsContext);
     const { 
         activeListName, 
         clearActiveList,
