@@ -92,6 +92,7 @@ export const SpellDisplay = ({
                 <span className="label">Duration</span>
                 <span className="value">{durationDisplay()}</span>
             </div>
+            {!!components.m && <div className='material'>**{components.m?.text || components.m}</div>}
             <div className='text'>
                 {entries.map((e, i) => <Entry key={i} entry={e} />)}
                 {!!entriesHigherLevel && (entriesHigherLevel).map((e, i) => <Entry key={i} entry={e} />)}

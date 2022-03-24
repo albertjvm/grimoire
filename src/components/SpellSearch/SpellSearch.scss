@@ -7,16 +7,31 @@
     padding: 16px;
     box-sizing: border-box;
 
-    input {
-        box-sizing: border-box;
-        width: 100%;
-        border: none;
-        outline: none;
-        background-color: rgba(white, .3);
-        color: white;
-        padding: 8px;
-        font-size: medium;
-        font-weight: bold;
+    .search {
+        position: relative;
+
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            border: none;
+            outline: none;
+            background-color: rgba(white, .3);
+            color: white;
+            padding: 8px;
+            font-size: medium;
+            font-weight: bold;
+        }
+
+        button {
+            position: absolute;
+            right: 0;
+            height: 100%;
+            width: 40px;
+            font-size: large;
+            background-color: rgba(white, .3);
+            border: none;
+            color: rgba(white, .8);
+        }
     }
 
     .SpellSearch-listname {

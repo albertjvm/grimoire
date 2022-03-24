@@ -93,12 +93,15 @@ export const SpellSearch = ({
 
     return (
         <div className='SpellSearch'>
-            <input 
-                type="text"
-                placeholder='Search...'
-                value={searchString}
-                onChange={e => setSearchString(e.target.value)}
-            />
+            <div className='search'>
+                <input 
+                    type="text"
+                    placeholder='Search...'
+                    value={searchString}
+                    onChange={e => setSearchString(e.target.value)}
+                />
+                <button className='fas fa-times' onClick={() => setSearchString('')} />
+            </div>
             <div className={`SpellSearch-filters ${hideFilters ? 'collapsed' : ''}`}>
                 <div className='buttonGroup col3'>
                     {CLASSES.map(c => (

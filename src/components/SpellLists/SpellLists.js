@@ -37,6 +37,10 @@ export const SpellLists = ({ onSelectSpell }) => {
         syncSpells()
     }, [activeListName, syncSpells]);
 
+    const sortedLists = () => (
+        lists.sort((l1, l2) => l1.name.localeCompare(l2.name))
+    );
+
     return (
         <div className="SpellLists">
             { activeListName ? <>
@@ -47,7 +51,7 @@ export const SpellLists = ({ onSelectSpell }) => {
                 <SpellList spells={listSpells} onSelect={onSelectSpell} onRemove={handleRemoveSpell} onCheck={handleCheckSpell} /> 
             </>:<>
                 <div className="SpellLists-lists">
-                    {lists.map(({ name }, i) => (
+                    {sortedLists().map(({ name }, i) => (
                         <div
                             key={i} 
                             className='SpellLists-list'
