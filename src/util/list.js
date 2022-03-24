@@ -1,3 +1,5 @@
+import { getSpellId } from "./spell";
+
 export const addSpellToList = ({listName, spellId}) => {
     // console.log('adding', spellId, 'to', listName);
     const spells = getList(listName) || [];
@@ -32,7 +34,11 @@ export const removeSpellFromList = ({listName, spellId}) => {
     ]);
 };
 
-const setList = (listName, spells) => {
+export const listContainsSpell =({listName, spell}) => {
+    return getList(listName)?.find(s => s.name === getSpellId(spell));
+};
+
+export const setList = (listName, spells) => {
     window.localStorage.setItem(listName, JSON.stringify(spells));
 };
 

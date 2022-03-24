@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { SpellList } from '..';
+import { ActiveListContext } from '../../context/ActiveListContext';
 import { SpellListsContext } from '../../context/SpellListsContext';
 import { checkSpell, getList, removeSpellFromList } from '../../util/list';
 import { getSpellId } from '../../util/spell';
@@ -8,7 +9,7 @@ import './SpellLists.scss';
 export const SpellLists = ({ onSelectSpell }) => {
     const { lists, addList } = useContext(SpellListsContext);
     const [ newName, setNewName ] = useState('');
-    const [ activeListName, setActiveListName ] = useState(null);
+    const { activeListName, setActiveListName, clearActiveList } = useContext(ActiveListContext);
     const [ listSpells, setListSpells ] = useState([]);
 
     const handleClickNew = () => {
@@ -41,7 +42,7 @@ export const SpellLists = ({ onSelectSpell }) => {
             { activeListName ? <>
                 <div className="SpellLists-header">
                     <h2>{activeListName}</h2>
-                    <button className="fas fa-times" onClick={() => setActiveListName(null)} />
+                    <button className="fas fa-times" onClick={clearActiveList} />
                 </div>
                 <SpellList spells={listSpells} onSelect={onSelectSpell} onRemove={handleRemoveSpell} onCheck={handleCheckSpell} /> 
             </>:<>

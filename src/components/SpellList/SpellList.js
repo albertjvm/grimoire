@@ -11,10 +11,16 @@ export const SpellList = ({
 }) => {
     const [ searchString, setSearchString ] = useState('');
     const [ levelFilter, setLevelFilter ] = useState([]);
+    const [ filterSelected, setFilterSelected ] = useState(false);
 
     const filterByLevel = ({level}) => {
         if (!levelFilter?.length) return true;
         return levelFilter.includes(level);
+    };
+
+    const filterBySelected = (spell) => {
+        if(!filterSelected) return true;
+        return spells.find(s => s.name === getSpellId(spell))?.selected;
     };
 
     const compareSpells = (s1, s2) => {
@@ -31,6 +37,7 @@ export const SpellList = ({
         .filter(s => spells.find(ls => ls.name === getSpellId(s)))
         .filter(({ name }) => regex.test(name.toLowerCase()))
         .filter(filterByLevel)
+        .filter(filterBySelected)
         .sort(compareSpells)
     };
     const isChecked = (name) => (
@@ -61,6 +68,14 @@ export const SpellList = ({
                             {l}
                         </button>
                     ))}
+                </div>
+                <div className='buttonGroup col3'>
+                    <button
+                        className={filterSelected ? 'active' : ''}
+                        onClick={() => setFilterSelected(!filterSelected)}
+                    >
+                        Prepared ({spells.filter(s => s.selected).length})
+                    </button>
                 </div>
             </div>
             <div className='SpellList-spells'>

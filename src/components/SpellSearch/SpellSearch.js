@@ -3,10 +3,11 @@ import './SpellSearch.scss';
 import { SpellListsContext } from '../../context/SpellListsContext';
 import { ListModal } from '../ListModal/ListModal';
 import { getSpellId } from '../../util/spell';
-import { addSpellToList } from '../../util/list';
+import { addSpellToList, removeSpellFromList, listContainsSpell } from '../../util/list';
 import { CLASSES } from '../../data/classes';
 import { SCHOOLS } from '../../data/schools';
 import { SOURCES } from '../../data/sources';
+import { ActiveListContext } from '../../context/ActiveListContext';
 
 export const SpellSearch = ({ 
     spells = [], 
@@ -14,6 +15,13 @@ export const SpellSearch = ({
     onRemove = () => {}
 }) => {
     const { lists } = useContext(SpellListsContext);
+    const { 
+        activeListName, 
+        clearActiveList,
+        activeListSpells,
+        addSpellToActiveList,
+        removeSpellFromActiveList 
+    } = useContext(ActiveListContext);
     const [ spellToAdd, setSpellToAdd ] = useState(null);
     const [ modalCoords, setModalCoords ] = useState(null);
     const [ searchString, setSearchString ] = useState('');
@@ -21,6 +29,7 @@ export const SpellSearch = ({
     const [ schoolFilter, setSchoolFilter ] = useState(null);
     const [ sourceFilter, setSourceFilter ] = useState(null);
     const [ levelFilter, setLevelFilter ] = useState([]);
+    const [ hideFilters, setHideFilters ] = useState(true);
 
     const filterByClass = ({classes}) => {
         if (!classFilter) return true;
@@ -67,8 +76,12 @@ export const SpellSearch = ({
     // console.log(filteredSpells().map(s => s.duration));
 
     const handleAdd = (e, s) => {
-        if (lists.length === 1) {
-            addSpellToList({ listName: lists[0].name, spellId: getSpellId(s)});
+        if (activeListName) {
+            if (listContainsSpell({listName: activeListName, spell: s})) {
+                removeSpellFromActiveList(s);
+            } else {
+                addSpellToActiveList(s);
+            }
         } else {
             const { pageX, pageY } = e;
             setModalCoords([pageY, pageX]);
@@ -89,7 +102,7 @@ export const SpellSearch = ({
                 value={searchString}
                 onChange={e => setSearchString(e.target.value)}
             />
-            <div className='SpellSearch-filters'>
+            <div className={`SpellSearch-filters ${hideFilters ? 'collapsed' : ''}`}>
                 <div className='buttonGroup col3'>
                     {CLASSES.map(c => (
                         <button
@@ -140,6 +153,16 @@ export const SpellSearch = ({
                     ))}
                 </div>
             </div>
+            <button 
+                className={`SpellSearch-toggle fas fa-angle-double-${hideFilters ? 'down' : 'up'}`} 
+                onClick={() => setHideFilters(!hideFilters)}
+            />
+            { activeListName &&
+                <div className="SpellSearch-listname">
+                    <button className="fas fa-times" onClick={clearActiveList} />
+                    <h4>{activeListName}</h4>
+                </div>
+            }
             <div className='SpellSearch-spells'>
                 {filteredSpells().map((spell, i) => (
                     <div key={i} className='SpellSearch-row'>
@@ -149,7 +172,10 @@ export const SpellSearch = ({
                         >
                             <span className='level'>{spell.level}</span>{spell.name}
                         </span>
-                        <button className='add fas fa-plus' onClick={(e) => handleAdd(e, spell)} />
+                        <button 
+                            className={`add fas fa-${activeListSpells?.find(s => s.name === getSpellId(spell)) ? 'check' : 'plus'}`}
+                            onClick={(e) => handleAdd(e, spell)} 
+                        />
                     </div>
                 ))}
             </div>
