@@ -42,6 +42,12 @@ export const SpellLists = ({ onSelectSpell }) => {
         lists.sort((l1, l2) => l1.name.localeCompare(l2.name))
     );
 
+    const handleKeyPress = e => {
+        if (e.key === "Enter") {
+            handleClickNew && handleClickNew();
+        }
+    };
+
     return (
         <div className="SpellLists">
             { activeListName ? <>
@@ -64,6 +70,7 @@ export const SpellLists = ({ onSelectSpell }) => {
                         type="text"
                         placeholder='New List'
                         value={newName}
+                        onKeyPress={handleKeyPress}
                         onChange={e => setNewName(e.target.value)}
                     />
                     <button onClick={handleClickNew}>+</button>
