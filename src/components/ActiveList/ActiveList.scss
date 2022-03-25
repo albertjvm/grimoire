@@ -1,0 +1,25 @@
+.ActiveList {
+    display: flex;
+    align-items: center;
+    color: white;
+    background-color: rgba(white, .1);
+    padding: 8px 16px;
+
+    span {
+        font-size: small;
+        font-variant: small-caps;
+        font-weight: bold;
+    }
+
+    h4 {
+        margin: 0 16px;
+        flex: 1;
+    }
+
+    button {
+        color: white;
+        background-color: rgba(white, .5);
+        height: 30px;
+        width: 30px;
+    }
+}

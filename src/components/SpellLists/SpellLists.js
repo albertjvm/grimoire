@@ -4,6 +4,7 @@ import { ActiveListContext } from '../../context/ActiveListContext';
 import { SpellListsContext } from '../../context/SpellListsContext';
 import { checkSpell, getList, removeSpellFromList } from '../../util/list';
 import { getSpellId } from '../../util/spell';
+import { ActiveList } from '../ActiveList/ActiveList';
 import './SpellLists.scss';
 
 export const SpellLists = ({ onSelectSpell }) => {
@@ -44,10 +45,7 @@ export const SpellLists = ({ onSelectSpell }) => {
     return (
         <div className="SpellLists">
             { activeListName ? <>
-                <div className="SpellLists-header">
-                    <h2>{activeListName}</h2>
-                    <button className="fas fa-times" onClick={clearActiveList} />
-                </div>
+                <ActiveList />
                 <SpellList spells={listSpells} onSelect={onSelectSpell} onRemove={handleRemoveSpell} onCheck={handleCheckSpell} /> 
             </>:<>
                 <div className="SpellLists-lists">

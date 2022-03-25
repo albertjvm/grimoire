@@ -14,13 +14,13 @@ export const ActiveListProvider = ({ children }) => {
 
     const addSpellToActiveList = (spell) => {
         const spellId = getSpellId(spell);
-        if (activeListSpells.find(s => s.name === spellId)) {
+        if (activeListSpells?.find(s => s.name === spellId)) {
             console.log('list already contains', spellId);
             return;
         }
 
         const newList = [
-            ...activeListSpells,
+            ...(activeListSpells || []),
             {name: spellId, selected: false}
         ];
 

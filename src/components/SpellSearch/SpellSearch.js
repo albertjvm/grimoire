@@ -7,6 +7,7 @@ import { CLASSES } from '../../data/classes';
 import { SCHOOLS } from '../../data/schools';
 import { SOURCES } from '../../data/sources';
 import { ActiveListContext } from '../../context/ActiveListContext';
+import { ActiveList } from '../ActiveList/ActiveList';
 
 export const SpellSearch = ({ 
     spells = [], 
@@ -158,10 +159,7 @@ export const SpellSearch = ({
                 onClick={() => setHideFilters(!hideFilters)}
             />
             { activeListName &&
-                <div className="SpellSearch-listname">
-                    <button className="fas fa-times" onClick={clearActiveList} />
-                    <h4>{activeListName}</h4>
-                </div>
+                <ActiveList />
             }
             <div className='SpellSearch-spells'>
                 {filteredSpells().map((spell, i) => (
