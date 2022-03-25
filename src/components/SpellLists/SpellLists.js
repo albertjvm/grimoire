@@ -10,7 +10,7 @@ import './SpellLists.scss';
 export const SpellLists = ({ onSelectSpell }) => {
     const { lists, addList } = useContext(SpellListsContext);
     const [ newName, setNewName ] = useState('');
-    const { activeListName, setActiveListName, clearActiveList } = useContext(ActiveListContext);
+    const { activeListName, setActiveListName } = useContext(ActiveListContext);
     const [ listSpells, setListSpells ] = useState([]);
 
     const handleClickNew = () => {

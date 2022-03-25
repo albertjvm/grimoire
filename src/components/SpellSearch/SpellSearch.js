@@ -15,7 +15,6 @@ export const SpellSearch = ({
 }) => {
     const { 
         activeListName, 
-        clearActiveList,
         activeListSpells,
         addSpellToActiveList,
         removeSpellFromActiveList 
