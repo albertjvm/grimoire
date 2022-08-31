@@ -2,7 +2,7 @@ export const Entry = ({ entry }) => {
     const removeMacros = (t) => (
         t.replaceAll(/{@dice (.*?)}/g, "$1")
         .replaceAll(/{@damage (.*?)}/g, "$1")
-        .replaceAll(/{@scaledamage (.*?)(\|.*?)?}/g, "$1")
+        .replaceAll(/{@scaledamage (.*)\|(.*?)}/g, "$2")
         .replaceAll(/{@scaledice (.*?)(\|.*?)?}/g, "$1")
         .replaceAll(/{@i (.*?)}/g, "\"$1\"")
         .replaceAll(/{@skill (.*?)}/g, "$1")
