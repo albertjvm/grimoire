@@ -9,6 +9,12 @@ import { SOURCES } from '../../data/sources';
 import { ActiveListContext } from '../../context/ActiveListContext';
 import { ActiveList } from '../ActiveList/ActiveList';
 
+const COMPONENTS = {
+    V: 'v',
+    S: 's',
+    M: 'm'
+};
+
 export const SpellSearch = ({ 
     spells = [], 
     onSelect
@@ -27,6 +33,7 @@ export const SpellSearch = ({
     const [ sourceFilter, setSourceFilter ] = useState(null);
     const [ levelFilter, setLevelFilter ] = useState([]);
     const [ hideFilters, setHideFilters ] = useState(true);
+    const [ componentFilters, setComponentFilters ] = useState([]);
 
     const filterByClass = ({classes}) => {
         if (!classFilter) return true;
@@ -51,6 +58,17 @@ export const SpellSearch = ({
         return levelFilter.includes(level);
     };
 
+    const filterByComponent = ({components}) => {
+        if (!componentFilters?.length) return true;
+        return (
+            ( !componentFilters.includes('v') || !!components.v )
+            && ( !componentFilters.includes('s') || !!components.s )
+            && ( !componentFilters.includes('m') || !!components.m )
+            && ( !componentFilters.includes('g') || !!components?.m?.cost )
+            && ( !componentFilters.includes('c') || !!components?.m?.consume )
+        );
+    };
+
     const compareSpells = (s1, s2) => {
         if (s1.level === s2.level) {
             return s1.name.localeCompare(s2.name);
@@ -66,11 +84,12 @@ export const SpellSearch = ({
         .filter(filterBySchool)
         .filter(filterBySource)
         .filter(filterByLevel)
+        .filter(filterByComponent)
         // .filter(({duration}) => duration[0].type==='permanent')
         .sort(compareSpells)
     };
 
-    // console.log(filteredSpells().map(s => s.duration));
+    // console.log(filteredSpells().map(s => s.components));
 
     const handleAdd = (e, s) => {
         if (activeListName) {
@@ -89,6 +108,18 @@ export const SpellSearch = ({
     const handleListSelect = (listName) => {
         addSpellToList({ listName, spellId: getSpellId(spellToAdd)});
         setModalCoords(null);
+    };
+
+    const handleClickComponentFilter = (k) => {
+        let newFilters = [];
+
+        if (componentFilters.includes(k)) {
+            newFilters = componentFilters.filter(c => c !== k);
+        } else {
+            newFilters = [...componentFilters, k];
+        }
+
+        setComponentFilters(newFilters);
     };
 
     return (
@@ -151,6 +182,31 @@ export const SpellSearch = ({
                             {s}
                         </button>
                     ))}
+                </div>
+                <div className='buttonGroup col3'>
+                    {Object.keys(COMPONENTS).map(k => (
+                        <button
+                            key={k}
+                            className={componentFilters.includes(COMPONENTS[k]) ? 'active' : ''}
+                            onClick={() => handleClickComponentFilter(COMPONENTS[k])}
+                        >   
+                            {k}
+                        </button>
+                    ))}
+                </div>
+                <div className='buttonGroup col2' style={{marginTop: '-4px'}}>
+                    <button
+                        className={componentFilters.includes('g') ? 'active' : ''}
+                        onClick={() => handleClickComponentFilter('g')}
+                    >
+                        M (gp)
+                    </button>
+                    <button
+                        className={componentFilters.includes('c') ? 'active' : ''}
+                        onClick={() => handleClickComponentFilter('c')}
+                    >
+                        M (gp, consumed)
+                    </button>
                 </div>
             </div>
             <button 

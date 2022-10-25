@@ -3,6 +3,12 @@ import { SPELLS } from '../../data/spells';
 import { getSpellId } from '../../util/spell';
 import './SpellList.scss';
 
+const COMPONENTS = {
+    V: 'v',
+    S: 's',
+    M: 'm'
+};
+
 export const SpellList = ({ 
     spells = [], 
     onSelect, 
@@ -12,6 +18,7 @@ export const SpellList = ({
     const [ searchString, setSearchString ] = useState('');
     const [ levelFilter, setLevelFilter ] = useState([]);
     const [ filterSelected, setFilterSelected ] = useState(false);
+    const [ componentFilters, setComponentFilters ] = useState([]);
 
     const filterByLevel = ({level}) => {
         if (!levelFilter?.length) return true;
@@ -31,6 +38,17 @@ export const SpellList = ({
         return s1.level - s2.level;
     };
 
+    const filterByComponent = ({components}) => {
+        if (!componentFilters?.length) return true;
+        return (
+            ( !componentFilters.includes('v') || !!components.v )
+            && ( !componentFilters.includes('s') || !!components.s )
+            && ( !componentFilters.includes('m') || !!components.m )
+            && ( !componentFilters.includes('g') || !!components?.m?.cost )
+            && ( !componentFilters.includes('c') || !!components?.m?.consume )
+        );
+    };
+
     const filteredSpells = () => {
         const regex = new RegExp(searchString.toLowerCase());
         return SPELLS
@@ -38,11 +56,24 @@ export const SpellList = ({
         .filter(({ name }) => regex.test(name.toLowerCase()))
         .filter(filterByLevel)
         .filter(filterBySelected)
+        .filter(filterByComponent)
         .sort(compareSpells)
     };
     const isChecked = (name) => (
         spells.find(s => s.name === name)?.selected
     );
+
+    const handleClickComponentFilter = (k) => {
+        let newFilters = [];
+
+        if (componentFilters.includes(k)) {
+            newFilters = componentFilters.filter(c => c !== k);
+        } else {
+            newFilters = [...componentFilters, k];
+        }
+
+        setComponentFilters(newFilters);
+    };
 
     return (
         <div className='SpellList'>
@@ -69,7 +100,34 @@ export const SpellList = ({
                         </button>
                     ))}
                 </div>
+
                 <div className='buttonGroup col3'>
+                    {Object.keys(COMPONENTS).map(k => (
+                        <button
+                            key={k}
+                            className={componentFilters.includes(COMPONENTS[k]) ? 'active' : ''}
+                            onClick={() => handleClickComponentFilter(COMPONENTS[k])}
+                        >   
+                            {k}
+                        </button>
+                    ))}
+                </div>
+                <div className='buttonGroup col2' style={{marginTop: '-4px'}}>
+                    <button
+                        className={componentFilters.includes('g') ? 'active' : ''}
+                        onClick={() => handleClickComponentFilter('g')}
+                    >
+                        M (gp)
+                    </button>
+                    <button
+                        className={componentFilters.includes('c') ? 'active' : ''}
+                        onClick={() => handleClickComponentFilter('c')}
+                    >
+                        M (gp, consumed)
+                    </button>
+                </div>
+
+                <div className='buttonGroup col2'>
                     <button
                         className={filterSelected ? 'active' : ''}
                         onClick={() => setFilterSelected(!filterSelected)}

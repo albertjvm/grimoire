@@ -78,7 +78,7 @@
     }
 
     .SpellSearch-filters {
-        height: 240px;
+        height: 296px;
         transition: height .3s;
         overflow-y: hidden;
 
@@ -104,7 +104,10 @@
                     background-color: rgba(white, .5);
                 }
             }
-            
+
+            &.col2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
             &.col3 {
                 grid-template-columns: repeat(3, 1fr);
             }
