@@ -73,30 +73,40 @@ export const SpellDisplay = ({
 
     return (
         <div className="SpellDisplay">
-            <button onClick={onClose}>X</button>
-            <h1>{name}</h1>
-            <h2>{levelDisplay(level)} {SCHOOLS[school]}</h2>
-            <h3>{source} p{page}</h3>
-            <h3>{classList().join(' ')}</h3>
-            <div className='flags'>
-                {isRitual() && <span>ritual</span>}
-                {isConc() && <span>concentration</span>}
-            </div>
-            <div className='castingInfo'>
-                <span className="label">Time</span>
-                <span className="value">{timeDisplay()}</span>
-                <span className="label">Range</span>
-                <span className="value">{rangeDisplay()}</span>
-                <span className="label">Comp.</span>
-                <span className="value">{comps()}</span>
-                <span className="label">Duration</span>
-                <span className="value">{durationDisplay()}</span>
-            </div>
-            {!!components.m && <div className='material'>**{components.m?.text || components.m}</div>}
-            <div className='text'>
-                {entries.map((e, i) => <Entry key={i} entry={e} />)}
-                {!!entriesHigherLevel && (entriesHigherLevel).map((e, i) => <Entry key={i} entry={e} />)}
-            </div>
+            <button onClick={onClose}>«</button>
+            <section className="SpellDisplay-body">
+                <div className="row">
+                    <h1>{name}</h1>
+                    <h5>{source} p{page}</h5>
+                </div>
+                <h2>{
+                    level === 0 ? `${SCHOOLS[school]} ${levelDisplay(level)}` : `${levelDisplay(level)} ${SCHOOLS[school]}`
+                }</h2>
+                <div className="row">
+                    {classList().map(c => (
+                        <h3 className='class'>{c}</h3>
+                    ))}
+                </div>
+                <div className='flags'>
+                    {isRitual() && <span>ritual</span>}
+                    {isConc() && <span>concentration</span>}
+                </div>
+                <div className='castingInfo'>
+                    <span className="label">Time</span>
+                    <span className="value">{timeDisplay()}</span>
+                    <span className="label">Range</span>
+                    <span className="value">{rangeDisplay()}</span>
+                    <span className="label">Comp.</span>
+                    <span className="value">{comps()}</span>
+                    <span className="label">Duration</span>
+                    <span className="value">{durationDisplay()}</span>
+                </div>
+                {!!components.m && <div className='material'>**{components.m?.text || components.m}</div>}
+                <div className='text'>
+                    {entries.map((e, i) => <Entry key={i} entry={e} />)}
+                    {!!entriesHigherLevel && (entriesHigherLevel).map((e, i) => <Entry key={i} entry={e} />)}
+                </div>
+            </section>
         </div>
     );
 };

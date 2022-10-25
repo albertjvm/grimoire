@@ -1,8 +1,29 @@
 .SpellDisplay {
-    padding: 16px;
     height: 100%;
     overflow-y: scroll;
     box-sizing: border-box;
+
+    .SpellDisplay-body {
+        padding: 8px;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+    }
+    h1 {
+        font-size: xx-large;
+    }
+    h2 {
+        font-size: large;
+    }
+    .class {
+        padding: 2px 6px;
+        background-color: rgba(0,0,0,.3);
+        border-radius: 50px;
+        margin-right: 6px;
+    }
 
     button {
         height: 50px;
@@ -11,19 +32,25 @@
         color: white;
         font-weight: bold;
         font-size: 32px;
-        border-radius: 25px;
     }
 
     .castingInfo {
         display: grid;
         grid-template-columns: 100px 200px;
+        border: 1px solid black;
+        width: fit-content;
+        margin-top: 6px;
 
         .label {
             font-weight: bold;
+            padding: 2px;
+            border: 1px solid black;
         }
         .value {
             font-variant: small-caps;
             font-weight: bold;
+            padding: 2px;
+            border: 1px solid black;
         }
     }
 
