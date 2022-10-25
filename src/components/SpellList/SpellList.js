@@ -18,7 +18,7 @@ export const SpellList = ({
     const [ searchString, setSearchString ] = useState('');
     const [ levelFilter, setLevelFilter ] = useState([]);
     const [ filterSelected, setFilterSelected ] = useState(false);
-    const [ componentFilters, setComponentFilters ] = useState([]);
+    const [ componentFilters, setComponentFilters ] = useState({});
 
     const filterByLevel = ({level}) => {
         if (!levelFilter?.length) return true;
@@ -39,13 +39,14 @@ export const SpellList = ({
     };
 
     const filterByComponent = ({components}) => {
-        if (!componentFilters?.length) return true;
+        const { v, s, m, g, c} = componentFilters;
+
         return (
-            ( !componentFilters.includes('v') || !!components.v )
-            && ( !componentFilters.includes('s') || !!components.s )
-            && ( !componentFilters.includes('m') || !!components.m )
-            && ( !componentFilters.includes('g') || !!components?.m?.cost )
-            && ( !componentFilters.includes('c') || !!components?.m?.consume )
+            (v === undefined || (v === true && !!components.v) || (v === false && !components.v))
+            && (s === undefined || (s === true && !!components.s) || (s === false && !components.s))
+            && (m === undefined || (m === true && !!components.m) || (m === false && !components.m))
+            && (g === undefined || (g === true && !!components?.m?.cost) || (g === false && !components?.m?.cost))
+            && (c === undefined || (c === true && !!components?.m?.consume) || (c === false && !components?.m?.consume))
         );
     };
 
@@ -64,15 +65,13 @@ export const SpellList = ({
     );
 
     const handleClickComponentFilter = (k) => {
-        let newFilters = [];
+        const value = componentFilters[k];
+        const newValue = value === true ? false : (value === false ? undefined : true);
 
-        if (componentFilters.includes(k)) {
-            newFilters = componentFilters.filter(c => c !== k);
-        } else {
-            newFilters = [...componentFilters, k];
-        }
-
-        setComponentFilters(newFilters);
+        setComponentFilters({
+            ...componentFilters,
+            [k]: newValue
+        });
     };
 
     return (
@@ -105,7 +104,7 @@ export const SpellList = ({
                     {Object.keys(COMPONENTS).map(k => (
                         <button
                             key={k}
-                            className={componentFilters.includes(COMPONENTS[k]) ? 'active' : ''}
+                            className={componentFilters[COMPONENTS[k]] === true ? 'active' : (componentFilters[COMPONENTS[k]] === false ? 'negative' : '')}
                             onClick={() => handleClickComponentFilter(COMPONENTS[k])}
                         >   
                             {k}
@@ -114,13 +113,13 @@ export const SpellList = ({
                 </div>
                 <div className='buttonGroup col2' style={{marginTop: '-4px'}}>
                     <button
-                        className={componentFilters.includes('g') ? 'active' : ''}
+                        className={componentFilters?.g === true ? 'active' : (componentFilters?.g === false ? 'negative' : '')}
                         onClick={() => handleClickComponentFilter('g')}
                     >
                         M (gp)
                     </button>
                     <button
-                        className={componentFilters.includes('c') ? 'active' : ''}
+                        className={componentFilters?.c === true ? 'active' : (componentFilters?.c === false ? 'negative' : '')}
                         onClick={() => handleClickComponentFilter('c')}
                     >
                         M (consumed)
