@@ -123,7 +123,7 @@ export const SpellList = ({
                         className={componentFilters.includes('c') ? 'active' : ''}
                         onClick={() => handleClickComponentFilter('c')}
                     >
-                        M (gp, consumed)
+                        M (consumed)
                     </button>
                 </div>
 
