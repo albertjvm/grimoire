@@ -77,12 +77,15 @@ export const SpellList = ({
 
     return (
         <div className='SpellList'>
-            <input 
-                type="text"
-                placeholder='Search...'
-                value={searchString}
-                onChange={e => setSearchString(e.target.value)}
-            />
+            <div className='search'>
+                <input 
+                    type="text"
+                    placeholder='Search...'
+                    value={searchString}
+                    onChange={e => setSearchString(e.target.value)}
+                />
+                <button className='fas fa-times' onClick={() => setSearchString('')} />
+            </div>
             <div className='SpellList-filters'>
                 <div className='buttonGroup col5'>
                     {(new Array(10).fill(0).map((_, i) => i)).map(l => (

@@ -34,18 +34,22 @@
       font-weight: bold;
       cursor: pointer;
 
-      &.spells {
-        background-color: black;
+      // &.spells {
+        background-color: #333;
+        color: rgba(white, .5);
+      // }
+
+      // &.lists {
+      //   background-color: white;
+      //   color: black;
+      // }
+
+      &.active {
+        border-bottom: 4px solid #ddd;
         color: white;
       }
 
-      &.lists {
-        background-color: white;
-        color: black;
-      }
-
       &:hover {
-        // background-color: transparent;
         text-decoration: underline;
       }
     }

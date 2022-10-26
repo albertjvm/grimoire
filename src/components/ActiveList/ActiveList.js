@@ -10,9 +10,10 @@ export const ActiveList = () => {
             <span>active list:</span>
             <h4>{activeListName}</h4>
             <button 
-                className="fas fa-times"
                 onClick={clearActiveList}
-            />
+            >
+                close
+            </button>
         </div>
     )
 };

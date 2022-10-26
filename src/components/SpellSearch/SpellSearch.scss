@@ -4,7 +4,7 @@
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
-    padding: 16px;
+    // padding: 16px;
     box-sizing: border-box;
 
     .search {
@@ -177,7 +177,6 @@
                 &.add {
                     transform: scaleX(0);
                     transform-origin: left;
-                    transition: transform .2s;
 
                     &.fa-check {
                         background-color: green;

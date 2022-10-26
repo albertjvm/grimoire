@@ -123,6 +123,9 @@ export const SpellSearch = ({
 
     return (
         <div className='SpellSearch'>
+            { activeListName &&
+                <ActiveList />
+            }
             <div className='search'>
                 <input 
                     type="text"
@@ -212,9 +215,6 @@ export const SpellSearch = ({
                 className={`SpellSearch-toggle fas fa-angle-double-${hideFilters ? 'down' : 'up'}`} 
                 onClick={() => setHideFilters(!hideFilters)}
             />
-            { activeListName &&
-                <ActiveList />
-            }
             <div className='SpellSearch-spells'>
                 {filteredSpells().map((spell, i) => (
                     <div key={i} className='SpellSearch-row'>
