@@ -84,7 +84,7 @@ export const SpellDisplay = ({
                 }</h2>
                 <div className="row">
                     {classList().map(c => (
-                        <h3 className='class'>{c}</h3>
+                        <h3 key={c} className='class'>{c}</h3>
                     ))}
                 </div>
                 <div className='flags'>

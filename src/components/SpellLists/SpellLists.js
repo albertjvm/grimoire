@@ -5,10 +5,11 @@ import { SpellListsContext } from '../../context/SpellListsContext';
 import { checkSpell, getList, removeSpellFromList } from '../../util/list';
 import { getSpellId } from '../../util/spell';
 import { ActiveList } from '../ActiveList/ActiveList';
+import { RemoveButton } from '../RemoveButton/RemoveButton';
 import './SpellLists.scss';
 
 export const SpellLists = ({ onSelectSpell }) => {
-    const { lists, addList } = useContext(SpellListsContext);
+    const { lists, addList, deleteList } = useContext(SpellListsContext);
     const [ newName, setNewName ] = useState('');
     const { activeListName, setActiveListName } = useContext(ActiveListContext);
     const [ listSpells, setListSpells ] = useState([]);
@@ -48,6 +49,10 @@ export const SpellLists = ({ onSelectSpell }) => {
         }
     };
 
+    const handleDeleteList = (name) => {
+        deleteList(name);
+    };
+
     return (
         <div className="SpellLists">
             { activeListName ? <>
@@ -57,11 +62,12 @@ export const SpellLists = ({ onSelectSpell }) => {
                 <div className="SpellLists-lists">
                     {sortedLists().map(({ name }, i) => (
                         <div
-                            key={i} 
+                            key={i}
                             className='SpellLists-list'
                             onClick={() => setActiveListName(name)}
                         >
-                            {name}
+                            <span>{name}</span>
+                            <RemoveButton onClick={() => handleDeleteList(name)} />
                         </div>
                     ))}
                 </div>

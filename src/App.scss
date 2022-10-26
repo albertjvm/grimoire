@@ -29,13 +29,23 @@
       border: none;
       outline: none;
       padding: 16px;
-      background-color: rgba(white, .3);
+      // background-color: rgba(white, .3);
       color: white;
       font-weight: bold;
       cursor: pointer;
 
-      &.active, &:hover {
-        background-color: transparent;
+      &.spells {
+        background-color: black;
+        color: white;
+      }
+
+      &.lists {
+        background-color: white;
+        color: black;
+      }
+
+      &:hover {
+        // background-color: transparent;
         text-decoration: underline;
       }
     }

@@ -1,0 +1,23 @@
+button.RemoveButton {
+    border: none;
+    background-color: rgba(black, .3);
+    color: white;
+    font-size: large;
+    width: 40px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(black, .6);
+    }
+
+    &.active {
+        background-color: crimson;
+    }
+
+    &.add {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .2s;
+    }
+    
+}

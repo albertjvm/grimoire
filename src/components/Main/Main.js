@@ -40,7 +40,7 @@ export const Main = ({ spells }) => {
                 {Object.values(TABS).map(t => (
                   <button
                     key={t}
-                    className={`App-tab ${activeTab === t ? 'active': ''}`}
+                    className={`App-tab ${activeTab === t ? 'active': ''} ${t.toLowerCase()}`}
                     onClick={() => setActiveTab(t)}
                   >
                     {t}

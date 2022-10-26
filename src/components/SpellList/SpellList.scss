@@ -31,16 +31,16 @@
                 border: none;
                 outline: none;
                 font-weight: bold;
-                color: white;
-                background-color: rgba(white, .3);
+                color: black;
+                background-color: rgba(black, .3);
                 padding: 4px;
 
                 &.active {
-                    background-color: rgba(white, .5);
+                    background-color: rgba(black, .5);
                 }
 
                 &.negative {
-                    background-color: rgba(black, .5);
+                    background-color: rgba(black, .1);
                 }
             }
             
@@ -64,7 +64,7 @@
         display: flex;
         flex-direction: column;
         overflow-y: scroll;
-        color: white;
+        color: black;
 
         &::-webkit-scrollbar {
             display: none;
@@ -79,7 +79,7 @@
                 align-items: center;
                 justify-content: center;
                 font-size: x-large;
-                color: rgba(white, .5);
+                color: rgba(black, .5);
             }
 
             .SpellList-spell {
@@ -93,35 +93,16 @@
                 white-space: nowrap;
     
                 &:hover {
-                    background-color: rgba(white, .3);
+                    background-color: rgba(black, .3);
                 }
 
                 .level {
                     font-size: small;
                     border-radius: 20px;
-                    background-color: rgba(white, .5);
+                    background-color: rgba(black, .5);
                     color: white;
                     padding: 4px 8px;
                     margin-right: 4px;
-                }
-            }
-
-            button {
-                border: none;
-                background-color: rgba(white, .3);
-                color: white;
-                font-size: large;
-                width: 40px;
-                cursor: pointer;
-
-                &.add {
-                    transform: scaleX(0);
-                    transform-origin: left;
-                    transition: transform .2s;
-                }
-                
-                &:hover {
-                    background-color: rgba(white, .6);
                 }
             }
 

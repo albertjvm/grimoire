@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { SPELLS } from '../../data/spells';
 import { getSpellId } from '../../util/spell';
+import { RemoveButton } from '../RemoveButton/RemoveButton';
 import './SpellList.scss';
 
 const COMPONENTS = {
@@ -148,7 +149,7 @@ export const SpellList = ({
                         >
                             <span className='level'>{spell.level}</span>{spell.name}
                         </span>
-                        <button className='remove fas fa-trash' onClick={() => onRemove(spell)} />
+                        <RemoveButton onClick={() => onRemove(spell)} />
                     </div>
                 ))}
             </div>
