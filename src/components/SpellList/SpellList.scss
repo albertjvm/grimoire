@@ -25,7 +25,7 @@
             position: absolute;
             right: 0;
             height: 100%;
-            width: 40px;
+            width: 50px;
             font-size: large;
             background-color: rgba(white, .3);
             border: none;
@@ -47,7 +47,7 @@
                 font-weight: bold;
                 color: white;
                 background-color: rgba(white, .3);
-                padding: 4px;
+                padding: 5px;
 
                 &.active {
                     background-color: rgba(white, .5);
@@ -98,7 +98,7 @@
 
             .SpellList-spell {
                 flex: 1;
-                padding: 8px;
+                padding: 9px;
                 cursor: pointer;
                 font-size: medium;
                 font-weight: bold;

@@ -26,7 +26,7 @@
             position: absolute;
             right: 0;
             height: 100%;
-            width: 40px;
+            width: 50px;
             font-size: large;
             background-color: rgba(white, .3);
             border: none;
@@ -73,12 +73,12 @@
         color: white;
         border: none;
         font-size: medium;
-        padding: 2px;
+        padding: 4px;
         margin: 2px 0;
     }
 
     .SpellSearch-filters {
-        height: 300px;
+        height: 315px;
         transition: height .3s;
         overflow-y: hidden;
 
@@ -98,7 +98,7 @@
                 font-weight: bold;
                 color: white;
                 background-color: rgba(white, .3);
-                padding: 4px;
+                padding: 5px;
 
                 &.active {
                     background-color: rgba(white, .5);
@@ -144,7 +144,7 @@
 
             .SpellSearch-spell {
                 flex: 1;
-                padding: 8px;
+                padding: 9px;
                 cursor: pointer;
                 font-size: medium;
                 font-weight: bold;
