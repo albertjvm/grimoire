@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { getList } from '../util/list';
 
 export const SpellListsContext = React.createContext();
 
@@ -36,11 +37,31 @@ export const SpellListsProvider = ({ children }) => {
         ]);
     };
 
+    const exportLists = () => {
+        const filename = 'grimoire.json';
+        const jsonStr = JSON.stringify(lists.map(({name}) => ({
+            name,
+            list: getList(name)
+        })));
+
+        let element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(jsonStr));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    };
+
     return (
         <SpellListsContext.Provider value={{
             lists,
             addList,
-            deleteList
+            deleteList,
+            exportLists
         }}>
             {children}
         </SpellListsContext.Provider>

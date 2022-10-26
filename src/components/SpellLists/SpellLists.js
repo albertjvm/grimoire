@@ -9,7 +9,7 @@ import { RemoveButton } from '../RemoveButton/RemoveButton';
 import './SpellLists.scss';
 
 export const SpellLists = ({ onSelectSpell }) => {
-    const { lists, addList, deleteList } = useContext(SpellListsContext);
+    const { lists, addList, deleteList, exportLists } = useContext(SpellListsContext);
     const [ newName, setNewName ] = useState('');
     const { activeListName, setActiveListName } = useContext(ActiveListContext);
     const [ listSpells, setListSpells ] = useState([]);
@@ -59,6 +59,16 @@ export const SpellLists = ({ onSelectSpell }) => {
                 <ActiveList />
                 <SpellList spells={listSpells} onSelect={onSelectSpell} onRemove={handleRemoveSpell} onCheck={handleCheckSpell} /> 
             </>:<>
+                <div className="SpellLists-newList">
+                    <input 
+                        type="text"
+                        placeholder='New List'
+                        value={newName}
+                        onKeyPress={handleKeyPress}
+                        onChange={e => setNewName(e.target.value)}
+                    />
+                    <button onClick={handleClickNew}>+</button>
+                </div>
                 <div className="SpellLists-lists">
                     {sortedLists().map(({ name }, i) => (
                         <div
@@ -72,14 +82,7 @@ export const SpellLists = ({ onSelectSpell }) => {
                     ))}
                 </div>
                 <div className="SpellLists-footer">
-                    <input 
-                        type="text"
-                        placeholder='New List'
-                        value={newName}
-                        onKeyPress={handleKeyPress}
-                        onChange={e => setNewName(e.target.value)}
-                    />
-                    <button onClick={handleClickNew}>+</button>
+                    <button onClick={exportLists}>Export my data</button>
                 </div>
             </>}
         </div>
