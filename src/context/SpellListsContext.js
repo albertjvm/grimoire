@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getList } from '../util/list';
+import { getList, setList } from '../util/list';
 
 export const SpellListsContext = React.createContext();
 
@@ -56,12 +56,23 @@ export const SpellListsProvider = ({ children }) => {
         document.body.removeChild(element);
     };
 
+    const importLists = (listData) => {
+        updateLists([
+            ...lists,
+            ...(listData.map(({name}) => ({name})))
+        ]);
+        listData.forEach(({ name, list }) => {
+            setList(name, list);
+        });
+    };
+
     return (
         <SpellListsContext.Provider value={{
             lists,
             addList,
             deleteList,
-            exportLists
+            exportLists,
+            importLists
         }}>
             {children}
         </SpellListsContext.Provider>

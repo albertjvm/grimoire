@@ -81,11 +81,26 @@
         display: flex;
         flex-direction: row;
 
-        button {
+        button, label {
             flex: 1;
+            cursor: pointer;
             height: 40px;
             font-size: large;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            background-color: #EEE;
+            border: 1px solid #333;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        #upload-json {
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
         }
     }
 }

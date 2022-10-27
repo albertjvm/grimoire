@@ -9,7 +9,7 @@ import { RemoveButton } from '../RemoveButton/RemoveButton';
 import './SpellLists.scss';
 
 export const SpellLists = ({ onSelectSpell }) => {
-    const { lists, addList, deleteList, exportLists } = useContext(SpellListsContext);
+    const { lists, addList, deleteList, exportLists, importLists } = useContext(SpellListsContext);
     const [ newName, setNewName ] = useState('');
     const { activeListName, setActiveListName } = useContext(ActiveListContext);
     const [ listSpells, setListSpells ] = useState([]);
@@ -53,6 +53,14 @@ export const SpellLists = ({ onSelectSpell }) => {
         deleteList(name);
     };
 
+    const handleUpload = (e) => {
+        const fileReader = new FileReader();
+        fileReader.readAsText(e.target.files[0], "UTF-8");
+        fileReader.onload = e => {
+          importLists(JSON.parse(e.target.result));
+        };
+    };
+
     return (
         <div className="SpellLists">
             { activeListName ? <>
@@ -82,6 +90,8 @@ export const SpellLists = ({ onSelectSpell }) => {
                     ))}
                 </div>
                 <div className="SpellLists-footer">
+                    <label htmlFor="upload-json">Import Data</label>
+                    <input type="file" id="upload-json" accept=".json" onChange={handleUpload} />
                     <button onClick={exportLists}>Export my data</button>
                 </div>
             </>}
