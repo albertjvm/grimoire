@@ -59,9 +59,14 @@ export const SpellListsProvider = ({ children }) => {
     const importLists = (listData) => {
         updateLists([
             ...lists,
-            ...(listData.map(({name}) => ({name})))
+            ...(listData.filter(({name}) => !!name).map(({name}) => ({name})))
         ]);
-        listData.forEach(({ name, list }) => {
+        listData.forEach((data) => {
+            const { name, list } = data;
+            if (!name || !list) {
+                console.warn('Skipping malformed data', JSON.stringify(data));
+                return;
+            }
             setList(name, list);
         });
     };
